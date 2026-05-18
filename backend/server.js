@@ -15,6 +15,9 @@ connectDB();
 
 const app = express();
 
+// this line right here is to fix the Render rate-limit crash!
+app.set('trust proxy', 1);
+
 // --- SECURITY MIDDLEWARES ---
 app.use(helmet());
 app.use(cors({

@@ -59,7 +59,14 @@ export const loginAdmin = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.cookie('jwt', '', { httpOnly: true, expires: new Date(0) });
+  res.cookie('jwt', '', {
+    httpOnly: true,
+    expires: new Date(0),
+    // These two lines MUST be here to successfully delete a cross-site cookie
+    secure: process.env.NODE_ENV === 'production' ? true : false,
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+  });
+
   return res.status(200).json({ success: true, message: 'Logged out successfully' });
 };
 
