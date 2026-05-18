@@ -48,7 +48,7 @@ export const updateListing = async (req, res) => {
 
     const listing = await Listing.findByIdAndUpdate(
       id,
-      { title, description, price, propertyType, status, address },
+      { title, description, price, isNegotiable, propertyType, status, address },
       { returnDocument: 'after', runValidators: true } // ✅ Modern syntax
     );
 
