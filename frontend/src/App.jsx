@@ -7,13 +7,15 @@ import LoginPage from './pages/LoginPage';
 import CreateListingPage from './pages/CreateListingPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import ListingDetailPage from './pages/ListingDetailPage';
-import EditListingPage from './pages/EditListingPage'
+import EditListingPage from './pages/EditListingPage';
+import PropertiesPage from './pages/PropertiesPage';
+import AdminPropertiesPage from './pages/AdminPropertiesPage';
 
 export default function App() {
   const { checkAuth, isCheckingAuth } = useAuthStore();
 
   useEffect(() => {
-    checkAuth(); 
+    checkAuth();
   }, []);
 
   if (isCheckingAuth) {
@@ -30,6 +32,7 @@ export default function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/properties" element={<PropertiesPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route
             path="/create-listing"
@@ -40,6 +43,7 @@ export default function App() {
             }
           />
           <Route path="/listing/:id" element={<ListingDetailPage />} />
+          <Route path="/admin" element={<ProtectedRoute><AdminPropertiesPage /></ProtectedRoute>} />
           <Route path="/edit-listing/:id" element={<ProtectedRoute><EditListingPage /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

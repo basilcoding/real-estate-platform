@@ -19,11 +19,14 @@ export const useListingStore = create((set) => ({
     }
   },
 
-  createListing: async (listingData) => {
+  // Update your createListing function in listingStore.js
+  createListing: async (formData) => {
     set({ isLoading: true, error: null });
     try {
-      // console.log(listingData)
-      const { data } = await api.post('/listings', listingData);
+      // 👇 Configure headers for multipart form data
+      const { data } = await api.post('/listings', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
       set((state) => ({ listings: [...state.listings, data.listing] }));
       return data;
     } catch (error) {
@@ -35,10 +38,13 @@ export const useListingStore = create((set) => ({
     }
   },
 
-  updateListing: async (id, listingData) => {
+  updateListing: async (id, formData) => {
     set({ isLoading: true, error: null });
     try {
-      const { data } = await api.put(`/listings/${id}`, listingData);
+      // 👇 Configure headers for multipart form data
+      const { data } = await api.put(`/listings/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
       set((state) => ({
         listings: state.listings.map(l => l._id === id ? data.listing : l)
       }));
