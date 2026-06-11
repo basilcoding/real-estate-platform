@@ -21,8 +21,9 @@ export default function Navbar() {
       className={`navbar transition-colors duration-300 ${
         isHomePage 
           ? 'bg-transparent absolute top-0 z-50 w-full' 
-          : 'bg-base-100 shadow-lg'
+          : 'bg-[#BFA15F] shadow-lg'
       }`}
+      
     >
       <div className="flex-1">
         <button
