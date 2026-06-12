@@ -1,7 +1,18 @@
 import { useState, useRef } from 'react';
 import { useListingStore } from '../store/listingStore';
 import { useNavigate } from 'react-router-dom';
-import { X, Save, Upload, Trash2 } from 'lucide-react';
+import { 
+    X, 
+    Save, 
+    Upload, 
+    Trash2, 
+    Building, 
+    FileText, 
+    Tag, 
+    Image as ImageIcon,
+    MapPin,
+    DollarSign
+} from 'lucide-react';
 
 export default function CreateListingPage() {
     const navigate = useNavigate();
@@ -52,7 +63,6 @@ export default function CreateListingPage() {
 
         try {
             await createListing(submitData);
-            // 👇 FIXED: matches App.jsx route
             navigate('/admin'); 
         } catch (err) {
             console.error(err);
@@ -60,112 +70,253 @@ export default function CreateListingPage() {
     };
 
     return (
-        <div className="container mx-auto p-4 max-w-4xl">
-            <div className="mb-6 flex items-center justify-between">
-                <div>
-                    <h1 className="text-3xl font-bold">Create New Property</h1>
-                    <p className="text-gray-600">Add listing details and photos</p>
+        <div className="min-h-screen bg-gray-50 py-10 px-4">
+            <div className="container mx-auto max-w-6xl">
+                
+                {/* Header Section */}
+                <div className="mb-8 flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-full bg-[#BFA15F] flex items-center justify-center shadow-lg">
+                        <Building size={28} className="text-white" />
+                    </div>
+                    <div>
+                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">Add New Property</h1>
+                        <p className="text-gray-500 mt-1 font-light tracking-wide">Enter the exquisite details and high-quality photos for the listing.</p>
+                    </div>
                 </div>
+
+                {error && (
+                    <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-8 rounded-r-xl flex items-center gap-3 shadow-sm">
+                        <X className="text-red-500" size={20} />
+                        <span className="text-red-700 font-medium">{error}</span>
+                    </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                    {/* Left Col: Details & Classifications (Takes up 2/3 of the space) */}
+                    <div className="lg:col-span-2 space-y-8">
+                        
+                        {/* Section 1: Basic Information */}
+                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+                            <h2 className="text-lg font-bold text-gray-800 flex items-center gap-2 mb-6 pb-4 border-b border-gray-100 uppercase tracking-wider">
+                                <FileText size={20} className="text-[#BFA15F]" /> Basic Information
+                            </h2>
+                            
+                            <div className="space-y-6">
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Property Title</label>
+                                    <input 
+                                        type="text" 
+                                        name="title" 
+                                        placeholder="Property name"
+                                        className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#BFA15F]/50 focus:border-[#BFA15F] transition-all" 
+                                        value={formData.title} 
+                                        onChange={handleChange} 
+                                        required 
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Description</label>
+                                    <textarea 
+                                        name="description" 
+                                        placeholder="Describe the elegant features of this property..."
+                                        className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-4 py-3 h-32 focus:outline-none focus:ring-2 focus:ring-[#BFA15F]/50 focus:border-[#BFA15F] transition-all resize-none" 
+                                        value={formData.description} 
+                                        onChange={handleChange} 
+                                        required
+                                    ></textarea>
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-1">
+                                        <MapPin size={14} /> Full Address
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        name="address" 
+                                        placeholder="Address..."
+                                        className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#BFA15F]/50 focus:border-[#BFA15F] transition-all" 
+                                        value={formData.address} 
+                                        onChange={handleChange} 
+                                        required 
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Section 2: Pricing & Classification */}
+                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+                            <h2 className="text-lg font-bold text-gray-800 flex items-center gap-2 mb-6 pb-4 border-b border-gray-100 uppercase tracking-wider">
+                                <Tag size={20} className="text-[#BFA15F]" /> Pricing & Attributes
+                            </h2>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                
+                                {/* Price Input Area */}
+                                <div className="space-y-3">
+                                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
+                                        <DollarSign size={14} /> Price
+                                    </label>
+                                    <div className="relative">
+                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                                        <input 
+                                            type="number" 
+                                            name="price" 
+                                            placeholder="0.00"
+                                            className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl pl-8 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#BFA15F]/50 focus:border-[#BFA15F] transition-all disabled:bg-gray-100 disabled:text-gray-400" 
+                                            value={formData.price} 
+                                            onChange={handleChange} 
+                                            disabled={formData.isNegotiable} 
+                                            required={!formData.isNegotiable} 
+                                        />
+                                    </div>
+                                    <label className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-100 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors">
+                                        <input 
+                                            type="checkbox" 
+                                            name="isNegotiable" 
+                                            checked={formData.isNegotiable} 
+                                            onChange={handleChange} 
+                                            className="checkbox checkbox-sm rounded border-gray-300 checked:bg-[#BFA15F] checked:border-[#BFA15F] focus:ring-[#BFA15F]/20" 
+                                        />
+                                        <span className="text-sm font-semibold text-gray-700">Contact for Price / Negotiable</span>
+                                    </label>
+                                </div>
+
+                                {/* Property Type & Status */}
+                                <div className="space-y-6">
+                                    <div>
+                                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Property Type</label>
+                                        <select 
+                                            name="propertyType" 
+                                            className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#BFA15F]/50 focus:border-[#BFA15F] transition-all appearance-none font-medium" 
+                                            value={formData.propertyType} 
+                                            onChange={handleChange}
+                                        >
+                                            <option>House</option>
+                                            <option>Apartment</option>
+                                            <option>Commercial</option>
+                                            <option>Land</option>
+                                            <option>Villa</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Listing Status</label>
+                                        <select 
+                                            name="status" 
+                                            className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#BFA15F]/50 focus:border-[#BFA15F] transition-all appearance-none font-medium" 
+                                            value={formData.status} 
+                                            onChange={handleChange}
+                                        >
+                                            <option>Available</option>
+                                            <option>Sold</option>
+                                            <option>Rented</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right Col: Image Upload & Actions (Takes up 1/3 of the space) */}
+                    <div className="space-y-8">
+                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 sticky top-24">
+                            <h2 className="text-lg font-bold text-gray-800 flex items-center gap-2 mb-6 pb-4 border-b border-gray-100 uppercase tracking-wider">
+                                <ImageIcon size={20} className="text-[#BFA15F]" /> Media Gallery
+                            </h2>
+
+                            <input
+                                type="file"
+                                multiple
+                                accept="image/*"
+                                ref={fileInputRef}
+                                onChange={handleImageSelect}
+                                className="hidden"
+                            />
+
+                            {/* Dropzone/Upload Button */}
+                            <button
+                                type="button"
+                                onClick={() => fileInputRef.current.click()}
+                                className="w-full flex flex-col items-center justify-center gap-3 py-10 border-2 border-dashed border-gray-300 rounded-xl text-gray-500 hover:border-[#BFA15F] hover:bg-[#BFA15F]/5 hover:text-[#BFA15F] transition-all mb-6 group"
+                            >
+                                <div className="p-4 bg-gray-50 rounded-full group-hover:bg-white transition-colors">
+                                    <Upload size={28} />
+                                </div>
+                                <div className="text-center">
+                                    <span className="font-semibold block">Click to upload photos</span>
+                                    <span className="text-xs font-light mt-1">PNG, JPG, up to 10MB</span>
+                                </div>
+                            </button>
+
+                            {/* Display New Previews in a Grid */}
+                            {previewImages.length > 0 && (
+                                <div className="grid grid-cols-2 gap-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                                    {previewImages.map((previewUrl, idx) => (
+                                        <div key={`new-${idx}`} className="relative group rounded-xl overflow-hidden border border-gray-200 aspect-square bg-gray-100">
+                                            <img src={previewUrl} alt="preview" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                <button 
+                                                    type="button" 
+                                                    onClick={() => removeNewImage(idx)} 
+                                                    className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-full transform scale-75 group-hover:scale-100 transition-all shadow-lg"
+                                                >
+                                                    <Trash2 size={16} />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
+                            {previewImages.length === 0 && (
+                                <div className="text-center text-sm text-gray-400 font-light mt-4">
+                                    No images selected yet.
+                                </div>
+                            )}
+
+                            {/* Action Buttons */}
+                            <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col gap-3">
+                                <button 
+                                    type="submit" 
+                                    className="w-full py-4 bg-black hover:bg-gray-800 text-[#C5A47E] font-semibold tracking-widest uppercase rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2" 
+                                    disabled={isLoading}
+                                >
+                                    {isLoading ? <span className="loading loading-spinner loading-sm"></span> : <Save size={18} />}
+                                    {isLoading ? 'Processing...' : 'Publish Listing'}
+                                </button>
+                                <button 
+                                    type="button" 
+                                    className="w-full py-4 bg-white border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-600 font-semibold tracking-widest uppercase rounded-xl transition-all flex items-center justify-center gap-2" 
+                                    onClick={() => navigate('/admin')}
+                                >
+                                    <X size={18} /> Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
 
-            {error && <div className="alert alert-error mb-6"><span>{error}</span></div>}
-
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                {/* Left Col: Details */}
-                <div className="md:col-span-2 card bg-base-100 shadow-xl border border-gray-100">
-                    <div className="card-body space-y-4">
-                        <div className="form-control">
-                            <label className="label"><span className="label-text font-semibold">Title</span></label>
-                            <input type="text" name="title" className="input input-bordered" value={formData.title} onChange={handleChange} required />
-                        </div>
-
-                        <div className="form-control">
-                            <label className="label"><span className="label-text font-semibold">Description</span></label>
-                            <textarea name="description" className="textarea textarea-bordered" rows="3" value={formData.description} onChange={handleChange} required></textarea>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="form-control">
-                                <label className="label"><span className="label-text font-semibold">Price ($)</span></label>
-                                <input type="number" name="price" className="input input-bordered" value={formData.price} onChange={handleChange} disabled={formData.isNegotiable} required={!formData.isNegotiable} />
-                                <label className="label cursor-pointer justify-start gap-2 mt-1">
-                                    <input type="checkbox" name="isNegotiable" checked={formData.isNegotiable} onChange={handleChange} className="checkbox checkbox-sm checkbox-primary" />
-                                    <span className="label-text">Price is Negotiable</span>
-                                </label>
-                            </div>
-
-                            <div className="form-control">
-                                <label className="label"><span className="label-text font-semibold">Property Type</span></label>
-                                <select name="propertyType" className="select select-bordered" value={formData.propertyType} onChange={handleChange}>
-                                    <option>House</option><option>Apartment</option><option>Commercial</option><option>Land</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div className="form-control">
-                            <label className="label"><span className="label-text font-semibold">Address</span></label>
-                            <input type="text" name="address" className="input input-bordered" value={formData.address} onChange={handleChange} required />
-                        </div>
-
-                        <div className="form-control">
-                            <label className="label"><span className="label-text font-semibold">Status</span></label>
-                            <select name="status" className="select select-bordered" value={formData.status} onChange={handleChange}>
-                                <option>Available</option><option>Sold</option><option>Rented</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Right Col: Image Upload Area */}
-                <div className="card bg-base-100 shadow-xl border border-gray-100">
-                    <div className="card-body">
-                        <h3 className="font-semibold text-lg mb-2">Property Images</h3>
-
-                        <input
-                            type="file"
-                            multiple
-                            accept="image/*"
-                            ref={fileInputRef}
-                            onChange={handleImageSelect}
-                            className="hidden"
-                        />
-
-                        <button
-                            type="button"
-                            onClick={() => fileInputRef.current.click()}
-                            className="w-full flex items-center justify-center gap-2 py-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-primary hover:text-primary transition-colors mb-4"
-                        >
-                            <Upload size={20} /> Add Photos
-                        </button>
-
-                        {/* Display New Previews */}
-                        <div className="space-y-3 max-h-[400px] overflow-y-auto">
-                            {previewImages.map((previewUrl, idx) => (
-                                <div key={`new-${idx}`} className="relative group rounded-lg overflow-hidden border-2 border-blue-200 h-24">
-                                    <span className="absolute top-1 left-1 bg-blue-500 text-white text-[10px] px-1.5 rounded">New</span>
-                                    <img src={previewUrl} alt="preview" className="w-full h-full object-cover" />
-                                    <button type="button" onClick={() => removeNewImage(idx)} className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <Trash2 size={14} />
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                {/* Form Actions */}
-                <div className="md:col-span-3 flex justify-end gap-3 mt-4">
-                    {/* 👇 FIXED: matches App.jsx route */}
-                    <button type="button" className="btn btn-outline" onClick={() => navigate('/admin')}>
-                        <X size={18} /> Cancel
-                    </button>
-                    <button type="submit" className="btn btn-primary" disabled={isLoading}>
-                        {isLoading ? <span className="loading loading-spinner loading-sm"></span> : <Save size={18} />}
-                        {isLoading ? 'Creating...' : 'Create Listing'}
-                    </button>
-                </div>
-            </form>
+            <style jsx global>{`
+                /* Custom Scrollbar for the image preview area */
+                .custom-scrollbar::-webkit-scrollbar {
+                    width: 6px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-track {
+                    background: #f1f1f1; 
+                    border-radius: 10px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                    background: #d1d5db; 
+                    border-radius: 10px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                    background: #9ca3af; 
+                }
+            `}</style>
         </div>
     );
 }

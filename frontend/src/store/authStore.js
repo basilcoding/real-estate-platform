@@ -6,6 +6,7 @@ export const useAuthStore = create((set) => ({
     isAuthenticated: false,
     isLoading: false,
     isCheckingAuth: true,
+    isLoggingOut: false, // 👈 Added new state
     error: null,
 
     login: async (email, password) => {
@@ -24,24 +25,29 @@ export const useAuthStore = create((set) => ({
     },
 
     logout: async () => {
+        set({ isLoggingOut: true }); // 👈 Trigger animation
         try {
-            await api.post('/auth/logout');
+            // Run API call AND a 1.2-second delay concurrently for a smooth animation
+            await Promise.all([
+                api.post('/auth/logout'),
+                new Promise(resolve => setTimeout(resolve, 1200))
+            ]);
         } catch (error) {
             console.error('Logout error:', error);
         } finally {
-            set({ user: null, isAuthenticated: false, error: null });
+            set({ user: null, isAuthenticated: false, error: null, isLoggingOut: false });
         }
     },
 
     checkAuth: async () => {
-        set({ isCheckingAuth: true }); // Start checking
+        set({ isCheckingAuth: true });
         try {
             const { data } = await api.get('/auth/me');
             set({ user: data.user, isAuthenticated: true });
         } catch (error) {
             set({ user: null, isAuthenticated: false });
         } finally {
-            set({ isCheckingAuth: false }); // Done checking!
+            set({ isCheckingAuth: false });
         }
     },
 

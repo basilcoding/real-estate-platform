@@ -9,7 +9,7 @@ const listingSchema = new Schema({
     required: function () { return !this.isNegotiable; }
   },
   isNegotiable: { type: Boolean, default: false },
-  propertyType: { type: String, enum: ["House", "Apartment", "Commercial", "Land"], required: true },
+  propertyType: { type: String, enum: ["House", "Apartment", "Commercial", "Land", "Villa"], required: true },
   status: { type: String, enum: ["Available", "Sold", "Rented"], default: "Available" },
   address: { type: String, required: true, trim: true },
   featured: { type: Boolean, default: false },

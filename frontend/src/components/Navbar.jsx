@@ -5,30 +5,27 @@ import { useNavigate, useLocation } from 'react-router-dom';
 export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuthStore();
   const navigate = useNavigate();
-  const location = useLocation(); // 1. Hook to get the current path
+  const location = useLocation();
 
   const handleLogout = async () => {
+    // Blurs the screen, runs the animation for 1.2s, and logs them out
     await logout();
+    // Redirects safely after the animation finishes
     navigate('/');
   };
 
-  // 2. Check if the current route is the homepage
   const isHomePage = location.pathname === '/';
 
   return (
-    // 3. Conditionally apply Tailwind classes based on the route
-    <nav 
-      className={`navbar transition-colors duration-300 ${
-        isHomePage 
-          ? 'bg-transparent absolute top-0 z-50 w-full' 
+    <nav
+      className={`navbar transition-colors duration-300 ${isHomePage
+          ? 'bg-black/20 absolute top-0 z-50 w-full'
           : 'bg-[#BFA15F] shadow-lg'
-      }`}
-      
+        }`}
     >
       <div className="flex-1">
         <button
           onClick={() => navigate('/')}
-          // Optional: You might want to change text color on the homepage if the background is dark
           className={`btn btn-ghost text-xl gap-2 ${isHomePage ? 'text-white' : ''}`}
         >
           <Home size={24} />
@@ -40,7 +37,7 @@ export default function Navbar() {
           <>
             <div className="dropdown dropdown-end">
               <button className="btn btn-ghost btn-circle">
-                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm font-bold">
+                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#BFA15F] text-sm font-bold">
                   {user?.email?.charAt(0).toUpperCase()}
                 </div>
               </button>
@@ -59,7 +56,7 @@ export default function Navbar() {
         ) : (
           <button
             onClick={() => navigate('/login')}
-            className="btn btn-primary btn-sm"
+            className={`btn ${isHomePage ? 'bg-transparent' : ' bg-[#BFA15F]'} btn-sm border-white shadow-none`}
           >
             Login
           </button>

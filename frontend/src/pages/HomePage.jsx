@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Building2, Shield, Leaf, Bold } from 'lucide-react';
+import Footer from '../components/Footer';
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -101,7 +102,7 @@ export default function HomePage() {
           View All Villas
         </button>
       </section>
-
+      <Footer />
     </div>
   );
 }

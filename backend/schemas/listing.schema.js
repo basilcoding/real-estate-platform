@@ -10,7 +10,7 @@ export const createListingSchema = z.object({
       .max(2000, "Description cannot exceed 2000 characters"),
     price: z.number().min(0, "Price cannot be negative").optional().or(z.literal('')),
     isNegotiable: z.boolean().default(false),
-    propertyType: z.enum(["House", "Apartment", "Commercial", "Land"]),
+    propertyType: z.enum(["House", "Apartment", "Commercial", "Land", "Villa"]),
     status: z.enum(["Available", "Sold", "Rented"]).default("Available"), address: z.string()
       .min(5, "Valid address required")
       .max(200, "Address cannot exceed 200 characters"),
