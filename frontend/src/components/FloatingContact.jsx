@@ -4,7 +4,7 @@ import { Phone } from 'lucide-react';
 export default function FloatingContact() {
   const contacts = [
     { label: "Villa Line 1", phone: "+971506969712", raw: "971506969712" },
-    { label: "Villa Line 2", phone: "+919809516305", raw: "9809516305" }
+    { label: "Villa Line 2", phone: "+919809516305", raw: "919809516305" }
   ];
 
   return (
