@@ -8,17 +8,17 @@ dotenv.config();
 const seedAdmin = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    
-    const adminExists = await User.findOne({ email: 'shahul1000@gmail.com' });
+
+    const adminExists = await User.findOne({ email: 'sshahul1000@gmail.com' });
     if (adminExists) {
       console.log('✅ Admin already exists');
       process.exit(0);
     }
 
-    const hashedPassword = await bcrypt.hash('Shahul1000@1212', 10);
+    const hashedPassword = await bcrypt.hash('password@121', 10);
 
     await User.create({
-      email: 'shahul1000@gmail.com',
+      email: 'sshahul1000@gmail.com',
       password: hashedPassword,
       name: 'Company Admin',
       role: 'admin',
@@ -35,7 +35,7 @@ const seedAdmin = async () => {
     console.log('🔐 Password: Admin@123');
     console.log('🏢 Company: Your Real Estate Company');
     console.log('⚠️  Change password after first login!\n');
-    
+
     process.exit(0);
   } catch (error) {
     console.error('❌ Seed error:', error);
