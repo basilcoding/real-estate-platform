@@ -107,10 +107,14 @@ export default function LoginPage() {
                         </form>
 
                         {/* Demo Credentials Divider & Info */}
-                        <div className="mt-8 pt-4 border-t border-gray-100">
+                        <div className="mt-8 pt-4 border-t border-gray-100 text-black">
                             <div className="text-center">
-                                
-                            </div>
+                                <button
+                                    onClick={() => navigate('/properties')}
+                                    className="inline-flex border border-white text text-sm tracking-widest hover:bg-white hover:text-zinc-900 transition-colors duration-300"
+                                >
+                                    Not an admin? Explore our properties here
+                                </button>                            </div>
                         </div>
                     </div>
                 </div>

@@ -7,11 +7,15 @@ export default function Footer() {
 
             <div className="w-full max-w-7xl border-t border-gray-800 mb-8"></div>
             <div className="text-gray-300 text-lg md:text-base font-light tracking-wide mb-4 text-center">
-                VILLAS
+                Easy Homes Contact
             </div>
             <div className="flex items-center gap-2 mb-6 text-sm md:text-base font-light tracking-wider hover:text-[#C5A47E] transition-colors cursor-pointer">
                 <Phone size={18} />
                 <span>+971 50 696 9712</span>
+            </div>
+            <div className="flex items-center gap-2 mb-6 text-sm md:text-base font-light tracking-wider hover:text-[#C5A47E] transition-colors cursor-pointer">
+                <Phone size={18} />
+                <span>+91 980 951 6305</span>
             </div>
 
             <div className="flex items-center gap-4 mb-8">
@@ -32,7 +36,7 @@ export default function Footer() {
             <div className="w-full max-w-7xl border-t border-gray-800 mb-6"></div>
 
             <div className="text-gray-400 text-xs md:text-sm tracking-wide font-light text-center">
-                VILLAS Limited © Copyright 2026 All rights reserved
+                Easy Homes Limited © Copyright 2026 All rights reserved
             </div>
         </footer>
     );

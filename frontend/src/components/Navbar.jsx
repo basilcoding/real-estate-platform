@@ -26,10 +26,10 @@ export default function Navbar() {
       <div className="flex-1">
         <button
           onClick={() => navigate('/')}
-          className={`btn btn-ghost text-xl gap-2 ${isHomePage ? 'text-white' : ''}`}
+          className={`flex text-xl gap-2 p-1.5 rounded-md transition-colors duration-300 hover:cursor-pointer hover:bg-black/20 ${isHomePage ? 'text-white' : ''}`}
         >
           <Home size={24} />
-          Real Estate
+          <b>Easy Homes</b>
         </button>
       </div>
       <div className="flex-none gap-2">

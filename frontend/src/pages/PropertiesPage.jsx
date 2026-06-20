@@ -153,7 +153,7 @@ const PropertyCard = ({ listing }) => {
                         <div className="grid grid-cols-2 md:flex md:flex-wrap items-center gap-4 md:gap-8 mt-5 pb-5 border-b border-gray-100">
                             <div className="col-span-2 md:col-span-1">
                                 <div className="text-xl font-bold text-gray-900">
-                                    {listing.price ? `$${listing.price.toLocaleString()}` : (listing.isNegotiable ? 'Contact for Price' : 'Price N/A')}
+                                    {listing.price ? `AED ${listing.price.toLocaleString()}` : (listing.isNegotiable ? 'Contact for Price' : 'Price N/A')}
                                 </div>
                                 {listing.price && <div className="text-xs text-gray-500 mt-0.5">Base Price</div>}
                             </div>
