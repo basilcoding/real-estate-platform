@@ -1,5 +1,5 @@
 import { useAuthStore } from '../store/authStore';
-import { LogOut, Home } from 'lucide-react';
+import { LogOut, Home, Plus, LayoutDashboard } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Navbar() {
@@ -35,6 +35,24 @@ export default function Navbar() {
       <div className="flex-none gap-2">
         {isAuthenticated ? (
           <>
+            {/* Admin Dashboard Link */}
+            <button
+              onClick={() => navigate('/admin')}
+              className={`btn btn-sm btn-ghost gap-2 ${isHomePage ? 'text-white hover:bg-white/20' : 'hover:bg-black/10'}`}
+            >
+              <LayoutDashboard size={18} />
+              <span className="hidden sm:inline font-semibold">Dashboard</span>
+            </button>
+
+            {/* Add Property Button */}
+            <button
+              onClick={() => navigate('/create-listing')}
+              className={`btn btn-sm btn-ghost gap-2 ${isHomePage ? 'text-white hover:bg-white/20' : 'hover:bg-black/10'}`}
+            >
+              <Plus size={18} />
+              <span className="hidden sm:inline font-semibold">Add Property</span>
+            </button>
+
             <div className="dropdown dropdown-end">
               <button className="btn btn-ghost btn-circle">
                 <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#BFA15F] text-sm font-bold">
@@ -56,7 +74,7 @@ export default function Navbar() {
         ) : (
           <button
             onClick={() => navigate('/login')}
-            className={`btn ${isHomePage ? 'bg-transparent' : ' bg-[#BFA15F]'} btn-sm border-white shadow-none`}
+            className={`btn ${isHomePage ? 'bg-transparent text-white hover:bg-white/20' : 'bg-[#BFA15F] text-white hover:bg-[#a88b4e]'} btn-sm border-white shadow-none`}
           >
             Login
           </button>
