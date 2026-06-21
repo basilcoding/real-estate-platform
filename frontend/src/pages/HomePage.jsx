@@ -25,7 +25,7 @@ export default function HomePage() {
         {/* Hero Content */}
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16">
           <p className="text-[#BFA15F] text-sm md:text-base font-semibold tracking-[0.3em] uppercase mb-6">
-            One of the best Villas in the market
+            True Quality Villas
           </p>
           <h1 className="text-5xl md:text-7xl font-serif text-white mb-8 leading-tight">
             Discover Your <br />  Private Sanctuary

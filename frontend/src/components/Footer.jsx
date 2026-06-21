@@ -1,4 +1,4 @@
-import { Phone } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -16,6 +16,10 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-6 text-sm md:text-base font-light tracking-wider hover:text-[#C5A47E] transition-colors cursor-pointer">
                 <Phone size={18} />
                 <span>+91 980 951 6305</span>
+            </div>
+            <div className="flex items-center gap-2 mb-6 text-sm md:text-base font-light tracking-wider hover:text-[#C5A47E] transition-colors cursor-pointer">
+                <Mail size={18} />
+                <span>shahul1000@gmail.com</span>
             </div>
 
             <div className="flex items-center gap-4 mb-8">
