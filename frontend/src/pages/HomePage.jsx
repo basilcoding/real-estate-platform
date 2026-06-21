@@ -65,9 +65,9 @@ export default function HomePage() {
           <div className="w-16 h-16 rounded-full bg-zinc-100 flex items-center justify-center mb-6 text-zinc-800">
             <Home size={24} strokeWidth={1.5} />
           </div>
-          <h3 className="text-lg font-serif mb-3 uppercase tracking-wider text-zinc-900">Pristine Properties</h3>
+          <h3 className="text-lg font-serif mb-3 uppercase tracking-wider text-zinc-900">Pristine Villas</h3>
           <p className="text-zinc-500 font-light text-sm leading-relaxed">
-            Every villa is meticulously maintained, fully equipped, and prepared to the highest standards before your arrival.
+            Every villa is meticulously maintained and prepared to the highest standards before your arrival.
           </p>
         </div>
 
@@ -78,7 +78,7 @@ export default function HomePage() {
           </div>
           <h3 className="text-lg font-serif mb-3 uppercase tracking-wider text-zinc-900">Secure & Direct</h3>
           <p className="text-zinc-500 font-light text-sm leading-relaxed">
-            What you see is what you get. Enjoy straightforward pricing, zero hidden fees, and a secure booking process.
+           Enjoy straightforward pricing, zero hidden fees, and a secure booking process.
           </p>
         </div>
 
